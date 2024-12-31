@@ -11,17 +11,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
-    "cypress": "^13.17.0"
-  },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [
-      "cypress/e2e/step_definitions/*.js",
-      "cypress/e2e/step_definitions/[filepath]/*.js"
+      "features/api/steps/*.js",
+      "features/ui/steps/*.js"
+      
     ],
     "filterSpecs": true,
     "omitFiltered": true
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "cypress": "^13.17.0"
   }
 }
