@@ -15,7 +15,6 @@
     "stepDefinitions": [
       "features/api/steps/*.js",
       "features/ui/steps/*.js"
-      
     ],
     "filterSpecs": true,
     "omitFiltered": true
