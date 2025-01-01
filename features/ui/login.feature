@@ -1,4 +1,4 @@
 Feature: Newtours Application
 
   Scenario: Open the Newtours application
-    Given open newtours application
+    Given login to the demo account
