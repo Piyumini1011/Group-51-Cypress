@@ -23,12 +23,13 @@ Then("the book should be updated with new title and author", function() {
     });
 });
 
-When("I update the book with missing author field with username {string} and password {string}", function(username, password, dataTable) {
-  const updateData = dataTable.hashes()[0];
+When("I update book with data missing field with username {string} and password {string}", function(username, password, dataTable) {
+  const updateData = {};
+  const row = dataTable.hashes()[0];
   
-  // Add timestamp to make book data unique
+  // Add timestamp to make data unique
   const timestamp = new Date().getTime();
-  updateData.title = `${updateData.title}_${timestamp}`;
+  updateData[row.field] = `${row.value}_${timestamp}`;
   
   cy.get('@bookId').then(bookId => {
       // Add the book ID to the update data
@@ -50,12 +51,23 @@ When("I update the book with missing author field with username {string} and pas
   });
 });
 
-When("I update the book with missing title field with username {string} and password {string}", function(username, password, dataTable) {
-  const updateData = dataTable.hashes()[0];
+When("I update book with invalid input with username {string} and password {string}", function(username, password, dataTable) {
+  const row = dataTable.hashes()[0];
+  const updateData = {};
   
-  // Add timestamp to make author data unique
+  // Handle special case for blank values
+  const value = row.value === '{blank}' ? '' : row.value;
+  
+  // Add timestamp to make data unique if the value is not blank
   const timestamp = new Date().getTime();
-  updateData.author = `${updateData.author}_${timestamp}`;
+  updateData[row.field] = value ? `${value}_${timestamp}` : value;
+  
+  // Add the other field with valid data to ensure we're only testing one invalid field at a time
+  if (row.field === 'title') {
+      updateData.author = `Valid Author ${timestamp}`;
+  } else {
+      updateData.title = `Valid Title ${timestamp}`;
+  }
   
   cy.get('@bookId').then(bookId => {
       // Add the book ID to the update data
@@ -72,24 +84,6 @@ When("I update the book with missing title field with username {string} and pass
               password: password
           },
           body: updateData,
-          failOnStatusCode: false
-      }).as('response');
-  });
-});
-
-When("I update the book with empty body with username {string} and password {string}", function(username, password) {
-  cy.get('@bookId').then(bookId => {
-      cy.request({
-          method: 'PUT',
-          url: `${API_URL}/${bookId}`,
-          headers: {
-              "Content-Type": "application/json",
-          },
-          auth: {
-              username: username,
-              password: password
-          },
-          body: {},  // Empty body
           failOnStatusCode: false
       }).as('response');
   });
