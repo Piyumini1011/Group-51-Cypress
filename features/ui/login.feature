@@ -1,4 +1,4 @@
-Feature: Newtours Application
+Feature: automationexercise Application
 
-  Scenario: Open the Newtours application
+  Scenario: Open the automationexercise application
     Given login to the demo account
