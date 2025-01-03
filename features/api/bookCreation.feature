@@ -1,6 +1,6 @@
 Feature: Book Operations
 
-  Scenario: Successfully creates new books with valid data
+  Scenario: Successfully creates new multiple books with valid data
     Given I am authenticated with username "admin" and password "password"
     When I create books with the following details:
       | title      | author        |
@@ -11,7 +11,7 @@ Feature: Book Operations
   @known-bug @bug-3
   Scenario:Create new book with integer data
     Given I am authenticated with username "user" and password "password"
-    When I attempt to create the same book again:
+    When I attempt to create a book with the integer data:
       | title         | author      |
       |12345           | 57937 |
     Then the system should not allow to create a book with integer data
