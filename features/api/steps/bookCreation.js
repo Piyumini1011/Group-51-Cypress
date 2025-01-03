@@ -31,7 +31,7 @@ Then("the book creation response should have status {int}", function(statusCode)
 });
 
 // Step for attempting to create a book with integer data (Revised second test case)
-When("I attempt to create the same book again:", function(dataTable) {
+When("I attempt to create a book with the integer data:", function(dataTable) {
     const book = dataTable.hashes()[0];
     cy.get('@authCredentials').then(({ username, password }) => {
         cy.request({
