@@ -8,10 +8,9 @@ module.exports = defineConfig({
   e2e: {
     specPattern: '**/*.feature',
     supportFile: false,
-    env:{
-      tags: process.env.TAGS || '',
+    env: {
+      tags: process.env.TAGS || "" // Allow tags to be passed via environment variable
     },
-
     async setupNodeEvents(on, config) {
       // Add Cucumber preprocessor plugin
       await addCucumberPreprocessorPlugin(on, config);
