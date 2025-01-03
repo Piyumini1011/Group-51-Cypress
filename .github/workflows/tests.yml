@@ -1,0 +1,60 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    # Skip if commit message contains [skip-tests]
+    if: "!contains(github.event.head_commit.message, '[skip-tests]')"
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Start Java server
+      run: |
+        cd server
+        nohup java -jar demo-0.0.1-SNAPSHOT.jar &
+        sleep 30  # Wait for server to start
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    # Run all tests first (including known bugs)
+    - name: Run All Tests
+      continue-on-error: true
+      run: npm run cypress:run
+      
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cypress-reports
+        path: |
+          cypress/reports
+          cypress/screenshots
+          cypress/videos
+
+    # Run strict tests for PR validation
+    - name: Run Strict Tests
+      if: github.event_name == 'pull_request'
+      run: npm run cypress:run -- --env tags="not @known-bug"
