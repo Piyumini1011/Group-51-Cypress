@@ -8,18 +8,18 @@ Feature: Book Operations
       | World011111 | James y       |
     Then the book creation response should have status 201
 
-  @known-bug @bug-3
+  @known-bug @bug-1
   Scenario:Create new book with integer data
     Given I am authenticated with username "user" and password "password"
     When I attempt to create a book with the integer data:
       | title         | author      |
       |12345           | 57937 |
     Then the system should not allow to create a book with integer data
-    And the response should have status 401
+    And the response should have status 400
     And response should contain message "User is not permitted."
 
-  @known-bug @bug-2
-  Scenario Outline: System rejects book creation with invalid data
+  @known-bug @bug-2 @bug-3 @bug-4
+  Scenario Outline: System rejects book creation with missing mandatory fields
     Given I am authenticated with username "admin" and password "password"
     When I create a book with invalid data:
       | title      | author       | 

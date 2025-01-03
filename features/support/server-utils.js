@@ -1,3 +1,5 @@
+
+
 class ServerUtils {
     constructor() {
         this.baseUrl = 'http://localhost:7081';
@@ -27,6 +29,8 @@ class ServerUtils {
 
         return options;
     }
+
+
 }
 
 module.exports = new ServerUtils();
