@@ -6,7 +6,9 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test": "cypress run --e2e"
+    "cypress:run:strict": "cypress run --env tags=\"not @known-bug\"",
+    "test": "cypress run --e2e",
+    "server":"java -jar demo-0.0.1-SNAPSHOT.jar"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +17,6 @@
     "stepDefinitions": [
       "features/api/steps/*.js",
       "features/ui/steps/*.js"
-      
     ],
     "filterSpecs": true,
     "omitFiltered": true
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
-    "cypress": "^13.17.0"
+    "cypress": "^13.17.0",
+    "cypress-mochawesome-reporter": "^3.8.2"
   }
 }
