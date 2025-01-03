@@ -47,7 +47,7 @@ When("I attempt to create a book with the integer data:", function(dataTable) {
 
 // Validation for not allowing integer data as book details
 Then("the system should not allow to create a book with integer data", function() {
-    cy.get('@integerDataResponse').its('status').should('eq', 401);
+    cy.get('@integerDataResponse').its('status').should('eq', 400);
 });
 
 Then("the response should have status {int}", function(statusCode) {
@@ -75,7 +75,7 @@ When("I create a book with invalid data:", function(dataTable) {
 
 // Validation for invalid data
 Then("the system should not allow to create a book with invalid data", function() {
-    cy.get('@invalidResponse').its('status').should('eq', 401);
+    cy.get('@invalidResponse').its('status').should('eq', 400);
 });
 
 Then("the response should have status {int}", function(statusCode) {

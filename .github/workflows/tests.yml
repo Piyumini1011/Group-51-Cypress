@@ -53,6 +53,8 @@ jobs:
           cypress/reports
           cypress/screenshots
           cypress/videos
+        if-no-files-found: error # Fail if no files found
+        retention-days: 30 
 
     # Run strict tests for PR validation
     - name: Run Strict Tests

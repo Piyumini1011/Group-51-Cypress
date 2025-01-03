@@ -1,7 +1,7 @@
 @api
 Feature: Book Delete API Tests
 
-    @known-bug @bug-1
+    @known-bug @bug-8
     Scenario: Admin can successfully delete a book
         When I send POST request to create book with username "admin" and password "password"
         | title          | author        |
@@ -9,7 +9,7 @@ Feature: Book Delete API Tests
         When I delete the book with username "admin" and password "password"
         Then I should get a response with status code 200
 
-    @known-bug @bug-2
+    @known-bug @bug-9
     Scenario: User cannot delete a book
         When I send POST request to create book with username "user" and password "password"
         | title          | author        |

@@ -20,7 +20,7 @@ Before(()=> {
                 method: 'DELETE',
                 url: `http://localhost:7081/api/books/${book.id}`,
                 auth: {
-                    username: 'admin',
+                    username: 'user',
                     password: 'password'
                 },
                 failOnStatusCode: false

@@ -23,6 +23,7 @@ When("I create a book with title {string} and author {string}", function (title,
         "Content-Type": "application/json"
       }
     }).then(response => {
+      
       expect(response.status).to.equal(201);
       cy.wrap(response.body.id).as('createdBookId');
     });
